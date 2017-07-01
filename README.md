@@ -1,6 +1,10 @@
 # bin-json
 *Serialize JSON intermixed with binary data*
 
+[![Travis branch](https://img.shields.io/travis/PsychoLlama/bin-json/master.svg?style=flat-square)](https://travis-ci.org/PsychoLlama/bin-json)
+[![npm](https://img.shields.io/npm/dt/bin-json.svg?style=flat-square)](https://www.npmjs.com/package/bin-json)
+[![npm](https://img.shields.io/npm/v/bin-json.svg?style=flat-square)](https://www.npmjs.com/package/bin-json)
+
 ## What for?
 First off, let's get this out of the way: `bin-json` is not a [BSON](https://docs.mongodb.com/manual/reference/bson-types/) alternative. It aims to solve a different problem. The sole purpose of `bin-json` is efficiently adding binary types to json.
 
