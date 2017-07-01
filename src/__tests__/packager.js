@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs';
 
 import { pack, unpack } from '../packager';
+import { small, large } from '../strings';
 
 const createBuffer = (arrayBuffer) => Buffer.from(arrayBuffer);
 
@@ -73,5 +74,16 @@ describe('Package', () => {
     const buffers = unpack(buffer);
 
     expect(createBuffer(buffers[0])).toEqual(data);
+  });
+
+  it('respects byte length when combining different dataview sizes', () => {
+    const buff1 = small.encode('small text');
+    const buff2 = large.encode('large text');
+
+    const buffer = pack([buff1, buff2]);
+    const buffers = unpack(buffer);
+
+    expect(new Uint8Array(buffers[0])).toEqual(buff1);
+    expect(new Uint16Array(buffers[1])).toEqual(buff2);
   });
 });

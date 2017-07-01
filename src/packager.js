@@ -57,6 +57,12 @@ const concatBuffers = (buffers) => {
 
   // Add the data from each buffer.
   buffers.reduce((cursor, buffer) => {
+
+    // TypedArray#set() doesn't respect byte sizing.
+    if (buffer.BYTES_PER_ELEMENT !== 1) {
+      buffer = new Uint8Array(buffer.buffer);
+    }
+
     view.set(buffer, cursor);
     return cursor + buffer.byteLength;
   }, 0);
