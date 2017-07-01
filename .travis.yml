@@ -1,9 +1,19 @@
 language: node_js
+
 node_js:
 - 4
 - 6
 - 8
 
 script:
-  - yarn test
-  - yarn lint
+- yarn test
+- yarn lint
+
+deploy:
+  provider: npm
+  email: Jesse_Gibson@me.com
+  api_key:
+    secure: GEGpf74Ww5KaahZVvSVXZsKGUQbRR3WrqQp7+p1zUmKFXuRZdK81mgh4CYx/H16RPAiZ9+PNeQPwXc+OttX9ohwEYCaETNN0VgQ9DEfohWN9pAlwreydMDomGCceUqIjBWtgrgrvO58rFtJ/EaEZilP4QEunYjWPdSqpFIyHSmOIa18SfNBD7I+QBmHYeX4EGj8fViLAMK5quHBfGyjUTNCIZC93K0aAchukJ2b9xeYLuOZZdZn/1F8hluRTNOhr78ZpZOhc+Jx76KgJAo7lOyl81g+VNN637WYfUm5HNbWUKlwvx7xzcuqu653KJ10BJG+e0+pUEKhtVXbJ2tMtn7EcnYH74X0fLikl4RtdZ1OZ7MdWInybzRh2lPvce+HsQKrIZjNCG5b0tQobFCmEHU035IBF8bb6L3OJnlsgm8JE1xg4PBIdMpJcnjNyt3TO5d/h818ZMviB01Qgfhird2Xmze4UD0gcX1Xi2XPkHoergD3fpocKkexkDLLoVJM8I3ZKaTgm6niH/QVrtiS2Gf6Kp7x8W01XPsVw4O+7eDnRHyzDGFWAGED4ZvQNoY3nunfQ00oM1KTY3oFPdgT/LJwB/swgzaH0u7dbg36tHpPUI8GK4alhx63XGowpIka9F0YQLM4R3tLHUZ3SFGU0zwcZge9Mq5g+I0gQsVH0CJU=
+  on:
+    tags: true
+    repo: PsychoLlama/bin-json
