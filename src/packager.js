@@ -6,11 +6,9 @@
  *   [comma-separated buffer lengths][null byte delimiter][actual buffers]
  */
 
-const getCharCode = (char) => char.charCodeAt(0);
-const getCharFromCode = (code) => String.fromCharCode(code);
+import { small } from './strings';
 const getBufferLength = (buffer) => buffer.byteLength;
 const addBufferSize = (acc, buffer) => acc + buffer.byteLength;
-const slice = Array.prototype.slice.call.bind(Array.prototype.slice);
 
 /**
  * Mostly the same as TypedArray#slice, but with browser support.
@@ -67,29 +65,6 @@ const concatBuffers = (buffers) => {
 };
 
 /**
- * Takes a string of text and turns it into an array buffer.
- * Not safe for all strings, only latin subsets.
- * @param  {String} string - Latin characters.
- * @return {Uint8Array} - A set of character codes.
- */
-const encodeSimpleText = (string) => {
-  const codes = string.split('').map(getCharCode);
-  const buffer = new ArrayBuffer(codes.length);
-
-  const view = new Uint8Array(buffer);
-  view.set(codes, 0);
-
-  return view;
-};
-
-/**
- * Reverses what `encodeSimpleText` does (again, only supports latin chars).
- * @param  {Number[]} codes - Character codes.
- * @return {String} - The resulting characters.
- */
-const decodeSimpleText = (codes) => codes.map(getCharFromCode).join('');
-
-/**
  * Takes a list of buffers (or typed arrays) and combines them,
  * attaching metadata so they can be parsed out later.
  * @param  {TypedArray[]} buffers - Binary values to combine.
@@ -97,7 +72,7 @@ const decodeSimpleText = (codes) => codes.map(getCharFromCode).join('');
  */
 export const pack = (buffers) => {
   const lengths = buffers.map(getBufferLength).join(',');
-  const header = encodeSimpleText(`${lengths}\0`);
+  const header = small.encode(`${lengths}\0`);
 
   return concatBuffers([header].concat(buffers));
 };
@@ -109,8 +84,8 @@ export const pack = (buffers) => {
  * @return {Number[]} - The lengths of each buffer.
  */
 const getBufferLengths = (view, delimiter) => {
-  const codes = slice(view, 0, delimiter);
-  const text = decodeSimpleText(codes);
+  const codes = sliceBuffer(view, 0, delimiter);
+  const text = small.decode(codes);
 
   return text.split(',').map(Number);
 };
