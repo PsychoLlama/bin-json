@@ -2,7 +2,7 @@
   "name": "bin-json",
   "version": "0.1.0",
   "description": "Serialize JSON which contains binary data",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "test:watch": "npm test -- --watch",
