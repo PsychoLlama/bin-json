@@ -8,7 +8,7 @@
 ## What for?
 First off, let's get this out of the way: `bin-json` is not a [BSON](https://docs.mongodb.com/manual/reference/bson-types/) alternative. It aims to solve a different problem. The sole purpose of `bin-json` is efficiently adding binary types to json.
 
-I built this tool because I needed to attach mime types to binary payloads. Prefixing the payload with a mime header would work, but becomes clunky once you add more information, like streaming metadata or timestamps. Ideally it would have the expressiveness of JSON, and the space efficiency of binary.
+I built this tool because I needed to attach mime types to binary payloads. Prefixing the payload with a mime header would work, but quickly becomes clunky as you add more information, like streaming metadata or timestamps. My target was the expressiveness of JSON, and the space efficiency of binary.
 
 Here's what it looks like:
 
