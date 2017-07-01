@@ -27,6 +27,9 @@
   "bugs": {
     "url": "https://github.com/PsychoLlama/bin-json/issues"
   },
+  "engines": {
+    "node": ">=4"
+  },
   "homepage": "https://github.com/PsychoLlama/bin-json#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
