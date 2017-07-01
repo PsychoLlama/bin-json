@@ -108,5 +108,7 @@ Binary data manipulation is still somewhat new to JavaScript. In standard browse
 
 ## Human support
 :collision: Find a bug? Submit an issue.
+
 :bulb: Have an idea? Also submit an issue.
-:thumbsup: Think I'm cool, or this project is cool? give it a star :sparkles:
+
+:thumbsup: Think I'm cool or this project is cool? Give it a star :sparkles:
