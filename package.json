@@ -1,0 +1,39 @@
+{
+  "name": "bin-json",
+  "version": "0.1.0",
+  "description": "Serialize JSON which contains binary data",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "lint": "eslint src/",
+    "build": "babel src/ -d dist/ --ignore __tests__",
+    "build:watch": "npm run build -- --watch",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PsychoLlama/bin-json.git"
+  },
+  "keywords": [
+    "json",
+    "binary",
+    "buffer",
+    "arraybuffer",
+    "browser"
+  ],
+  "author": "Jesse Gibson <overlord@psychollama.io> (http://psychollama.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PsychoLlama/bin-json/issues"
+  },
+  "homepage": "https://github.com/PsychoLlama/bin-json#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-jest": "^20.0.3",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint": "^4.1.1",
+    "eslint-config-llama": "^3.0.0",
+    "jest": "^20.0.4"
+  }
+}

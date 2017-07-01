@@ -1,0 +1,10 @@
+extends:
+  - eslint:recommended
+  - llama
+
+env:
+  shared-node-browser: true
+  jest: true
+
+parserOptions:
+  sourceType: module
