@@ -99,7 +99,6 @@ const int16Array = new Int16Array(int8Array.buffer)
 More details about typed arrays can be [found here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray).
 
 ## Roadmap
-- Preserve binary type (if you encode an `Int32Array`, don't decode with `Uint8Array`).
 - Add support for custom `Buffer` interfaces (`json.Buffer = require('buffer/')`).
 - Deduplicate nested buffers (`encode({ buff1: buffer, buff2: buffer })` will contain `buffer` twice).
 

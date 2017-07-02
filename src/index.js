@@ -1,9 +1,7 @@
 import { pack, unpack } from './packager';
 import { large } from './strings';
 
-const BIN_JSON_SECRET_KEY = 'BIN_JSON_SECRET_KEY';
-exports.SECRET_KEY = BIN_JSON_SECRET_KEY;
-
+exports.SECRET_KEY = 'BIN_JSON_PNTR';
 const BUFFER = 'Buffer';
 
 /**
@@ -40,6 +38,46 @@ const isBuffer = (data) => {
   return false;
 };
 
+// TypedArray constants.
+const bufferTypes = {
+  i8: 1,
+  ui16: 2,
+  i16: 3,
+  ui32: 4,
+  i32: 5,
+  f32: 6,
+  f64: 7,
+};
+
+// Map constants to TypedArray constructors.
+const arrayTypes = {
+  [bufferTypes.i8]: Int8Array,
+  [bufferTypes.ui16]: Uint16Array,
+  [bufferTypes.i16]: Int16Array,
+  [bufferTypes.ui32]: Uint32Array,
+  [bufferTypes.i32]: Int32Array,
+  [bufferTypes.f32]: Float32Array,
+  [bufferTypes.f64]: Float64Array,
+};
+
+/**
+ * Turn a TypedArray instance into a constant representing its type.
+ * @param  {TypedArray} buffer - Any typed array.
+ * @return {Number|null} - A numerical constant, or null for the default.
+ */
+const getBufferType = (buffer) => {
+  switch (buffer.constructor) {
+  case Int8Array: return bufferTypes.i8;
+  case Uint16Array: return bufferTypes.ui16;
+  case Int16Array: return bufferTypes.i16;
+  case Uint32Array: return bufferTypes.ui32;
+  case Int32Array: return bufferTypes.i32;
+  case Float32Array: return bufferTypes.f32;
+  case Float64Array: return bufferTypes.f64;
+  default: return null;
+  }
+};
+
 /**
  * Stringifies JSON data and leaves a pointer where binary values were.
  * @param  {Mixed} data - Any JSON compatible data (or binary).
@@ -61,12 +99,13 @@ const serialize = (data) => {
       value = new Uint8Array(value.data);
     }
 
-    const index = buffers.length;
-    buffers.push(value);
+    const index = buffers.push(value) - 1;
 
-    return {
-      [exports.SECRET_KEY]: ['b', index],
-    };
+    // Remember the TypedArray kind.
+    const bufferType = getBufferType(value);
+    const pointer = bufferType ? [index, bufferType] : [index];
+
+    return { [exports.SECRET_KEY]: pointer };
   });
 
   return { buffers, json };
@@ -106,9 +145,13 @@ const deserialize = (buffers) => (key, value) => {
     return value;
   }
 
-  const [, index] = value[exports.SECRET_KEY];
+  const [index, TYPE] = value[exports.SECRET_KEY];
+
+  // Reconstruct the data in the original buffer view.
+  const TypedArray = arrayTypes[TYPE] || Uint8Array;
+
   if (index in buffers) {
-    return new Uint8Array(buffers[index]);
+    return new TypedArray(buffers[index]);
   }
 
   return value;
