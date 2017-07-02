@@ -4,6 +4,19 @@ import { large } from './strings';
 const BIN_JSON_SECRET_KEY = 'BIN_JSON_SECRET_KEY';
 exports.SECRET_KEY = BIN_JSON_SECRET_KEY;
 
+const BUFFER = 'Buffer';
+
+/**
+ * Detects if the value was a JSON-coerced Node-style buffer.
+ * @param  {Any} value - Potential node buffer.
+ * @return {Boolean} - Whether the value is a node buffer.
+ */
+const isNodeBuffer = (value) => Boolean(
+  value.type === BUFFER &&
+  value.data &&
+  value.data.slice
+);
+
 /**
  * Determines if a value is an ArrayBuffer view.
  * @param  {Any} data - Anthing.
@@ -14,7 +27,13 @@ const isBuffer = (data) => {
     return false;
   }
 
+  // Typed arrays.
   if (data.buffer instanceof ArrayBuffer) {
+    return true;
+  }
+
+  // Workaround for Node-style Buffers.
+  if (isNodeBuffer(data)) {
     return true;
   }
 
@@ -33,6 +52,13 @@ const serialize = (data) => {
   const json = JSON.stringify(data, (key, value) => {
     if (!isBuffer(value)) {
       return value;
+    }
+
+    // `JSON.stringify` calls `.toJSON` on buffers before
+    // this function sees them, which turns the ArrayBuffer
+    // into a JS array. I'm not sure if there's a cleaner way to handle this.
+    if (isNodeBuffer(value)) {
+      value = new Uint8Array(value.data);
     }
 
     const index = buffers.length;

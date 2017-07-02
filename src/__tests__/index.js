@@ -115,4 +115,17 @@ describe('bin-json', () => {
     expect(Buffer.from(result[0])).toEqual(buff1);
     expect(Buffer.from(result[1])).toEqual(buff2);
   });
+
+  it('works with deeply nested arrays', () => {
+    const buffer = json.encode({
+      buffer: Buffer.from('oh looky a string'),
+    });
+
+    const value = json.decode(buffer);
+
+    // Means `.toJSON` is being called on `Buffer`.
+    expect(value.buffer.type).toBeFalsy();
+    expect(value.buffer.data).toBeFalsy();
+    expect(value.buffer).toEqual(expect.any(Uint8Array));
+  });
 });
