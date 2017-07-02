@@ -103,4 +103,16 @@ describe('bin-json', () => {
       binary,
     });
   });
+
+  it('works with buffer arrays', () => {
+    const buff1 = Buffer.from('something');
+    const buff2 = Buffer.from('else');
+
+    const data = json.encode([buff1, buff2]);
+    const result = json.decode(data);
+
+    expect(result.length).toBe(2);
+    expect(Buffer.from(result[0])).toEqual(buff1);
+    expect(Buffer.from(result[1])).toEqual(buff2);
+  });
 });
