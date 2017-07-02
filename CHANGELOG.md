@@ -2,6 +2,10 @@
 
 > This changelog adopts the [keep-a-changelog style](http://keepachangelog.com/en/0.3.0/) and adheres to [semver](http://semver.org/).
 
+## v0.2.0
+### Added
+- Memory of array types (encode as an `Int32Array` and it'll decode as an `Int32Array`).
+
 ## v0.1.1
 ### Fixed
 - Handling of Node `Buffer` instances (they were being stringified).
