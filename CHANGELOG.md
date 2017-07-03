@@ -2,6 +2,10 @@
 
 > This changelog adopts the [keep-a-changelog style](http://keepachangelog.com/en/0.3.0/) and adheres to [semver](http://semver.org/).
 
+## v0.3.0
+### Added
+- `json.use(Buffer)` option which automatically converts typed arrays into buffer instances of your choosing.
+
 ## v0.2.0
 ### Added
 - Memory of array types (encode as an `Int32Array` and it'll decode as an `Int32Array`).

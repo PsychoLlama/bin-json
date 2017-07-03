@@ -34,7 +34,7 @@ Under the hood it's extracting all the binary values from the json tree, replaci
 Things You're Probably Wondering About :tm:
 
 - Yes, emojis work :clap: (and, you know, chinese characters)
-- It's space efficient, metadata only adds a few more bytes (usally less than 100)
+- It's space efficient, metadata only adds a few more bytes
 - `bin-json` is a json superset and regular json works just fine
 - It works in both Node and the browser
 
@@ -98,8 +98,26 @@ const int16Array = new Int16Array(int8Array.buffer)
 
 More details about typed arrays can be [found here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray).
 
+## Make everything a `Buffer`
+Working in an environment with a [`Buffer`](https://nodejs.org/api/buffer.html) implementation? `bin-json` has an option to automatically convert typed arrays into their `Buffer` equivalents.
+
+```js
+import json from 'bin-json'
+
+json.use(Buffer)
+
+const buffer = json.encode({ data: Buffer.from('buffers!') })
+// <Buffer 38 2c 36 30 00 62 75 66 66 65 72 73 21 7b ... >
+
+json.decode(buffer)
+// { data: <Buffer 62 75 66 66 65 72 73 21> }
+```
+
+Calling `json.use()` tells `bin-json` to use `Buffer` everywhere it would normally use a typed array or `ArrayBuffer`.
+
+> **Note:** Data is still encoded and decoded with typed arrays under the hood. `json.use(Buffer)` is only API sugar.
+
 ## Roadmap
-- Add support for custom `Buffer` interfaces (`json.Buffer = require('buffer/')`).
 - Deduplicate nested buffers (`encode({ buff1: buffer, buff2: buffer })` will contain `buffer` twice).
 
 ## Browser support

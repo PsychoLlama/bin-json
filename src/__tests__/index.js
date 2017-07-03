@@ -1,4 +1,4 @@
-import { small } from '../strings';
+import { small, large } from '../strings';
 import json from '../index';
 
 const originalSecretKey = json.SECRET_KEY;
@@ -6,6 +6,7 @@ const originalSecretKey = json.SECRET_KEY;
 describe('bin-json', () => {
   afterEach(() => {
     json.SECRET_KEY = originalSecretKey;
+    json.use(null);
   });
 
   it('encodes to an ArrayBuffer', () => {
@@ -175,5 +176,37 @@ describe('bin-json', () => {
     expect([...data.i16]).toEqual([16]);
     expect([...data.ui8]).toEqual([8]);
     expect([...data.i8]).toEqual([8]);
+  });
+
+  it('uses `Buffer` if set', () => {
+    json.use(Buffer);
+
+    const data = Buffer.from('things');
+    const buffer = json.encode(data);
+    const result = json.decode(buffer);
+
+    expect(result).toEqual(expect.any(Buffer));
+    expect(result).toEqual(data);
+  });
+
+  it('indicates the buffer member byte length to `Buffer`', () => {
+    json.use(Buffer);
+
+    const data = 'ˆœ˚∆˙˜øçº™🔥∫˙∆–¬…';
+    const buffer = json.encode(large.encode(data));
+    const result = json.decode(buffer);
+
+    // `Buffer.from` detects the byte sizing based on the input type.
+    // If it's given an ArrayBuffer without byte context,
+    // some characters will be malformed.
+    expect(result).toEqual(Buffer.from(large.encode(data)));
+  });
+
+  it('encodes to a `Buffer` if set', () => {
+    json.use(Buffer);
+
+    const buffer = json.encode(null);
+
+    expect(buffer).toEqual(expect.any(Buffer));
   });
 });

@@ -1,7 +1,20 @@
 import { pack, unpack } from './packager';
 import { large } from './strings';
 
+let BufferType = null;
+
+/**
+ * Sets a global buffer encoder. Useful in Node environments
+ * or anywhere the `buffer` package is used.
+ * @param  {Buffer|null} Buffer - A Node.js `Buffer` style interface.
+ * @return {Object} - The json encoder/decoder.
+ */
+exports.use = (Buffer) => {
+  BufferType = Buffer;
+};
+
 exports.SECRET_KEY = 'BIN_JSON_PNTR';
+
 const BUFFER = 'Buffer';
 
 /**
@@ -79,6 +92,19 @@ const getBufferType = (buffer) => {
 };
 
 /**
+ * Reconstructs a buffer view using the original encoding.
+ * If `json.Buffer` is set, it constructs it using that.
+ * @param  {String} [type] - A constant representing the array type.
+ * @param  {ArrayBuffer} buffer - Any binary data.
+ * @return {TypedArray|json.Buffer} - A typed array or json.Buffer instance.
+ */
+const createBufferView = (type, buffer) => {
+  const TypedArray = arrayTypes[type] || Uint8Array;
+  const view = new TypedArray(buffer);
+  return BufferType ? BufferType.from(view) : view;
+};
+
+/**
  * Stringifies JSON data and leaves a pointer where binary values were.
  * @param  {Mixed} data - Any JSON compatible data (or binary).
  * @return {Object} data.json - The stringified json data.
@@ -126,7 +152,9 @@ exports.encode = (data) => {
   const everything = buffers.concat(large.encode(json));
   const buffer = pack(everything);
 
-  return buffer;
+  // Some Node APIs don't recognize ArrayBuffers (e.g., zlib).
+  // If `json.Buffer` is set, it gives better Node interop.
+  return BufferType ? BufferType.from(buffer) : buffer;
 };
 
 /**
@@ -147,11 +175,10 @@ const deserialize = (buffers) => (key, value) => {
 
   const [index, TYPE] = value[exports.SECRET_KEY];
 
-  // Reconstruct the data in the original buffer view.
-  const TypedArray = arrayTypes[TYPE] || Uint8Array;
-
   if (index in buffers) {
-    return new TypedArray(buffers[index]);
+
+    // Reconstruct the data in the original buffer view.
+    return createBufferView(TYPE, buffers[index]);
   }
 
   return value;
