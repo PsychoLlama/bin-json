@@ -9,6 +9,21 @@ describe('bin-json', () => {
     json.use(null);
   });
 
+  it('throws if you decode a non-buffer', () => {
+    expect(() => json.decode('value')).toThrow(/string/);
+    expect(() => json.decode(5)).toThrow(/number/);
+    expect(() => json.decode(null)).toThrow(/null/);
+    expect(() => json.decode(undefined)).toThrow(/undefined/);
+
+    expect(() => json.decode(json.encode(10))).not.toThrow();
+  });
+
+  it('throws a helpful message if given a stringified ArrayBuffer', () => {
+    const fail = () => json.decode('[object ArrayBuffer]');
+
+    expect(fail).toThrow(/arraybuffer/i);
+  });
+
   it('encodes to an ArrayBuffer', () => {
     const buffer = json.encode('data');
 
