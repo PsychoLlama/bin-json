@@ -190,6 +190,24 @@ const deserialize = (buffers) => (key, value) => {
  * @return {Mixed} - The JSON data, binary values included :tada:
  */
 exports.decode = (buffer) => {
+  const typeName = typeof buffer;
+  const isObject = typeName === 'object' && !!buffer;
+
+  // Do some validation.
+  if (buffer === '[object ArrayBuffer]') {
+    throw new TypeError(
+      'Hmmm, bin-json.decode(...) was given "[object ArrayBuffer]".\n' +
+      'Double check that your encoded data is being handled correctly.'
+    );
+  }
+
+  if (!isObject) {
+    const type = typeName === 'object' ? String(buffer) : typeName;
+    throw new TypeError(
+      `bin-json.decode() expects a buffer, but was given "${type}".`
+    );
+  }
+
   const parsed = unpack(buffer);
   const buffers = parsed.slice(0, -1);
   const deserializer = deserialize(buffers);
