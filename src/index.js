@@ -9,7 +9,7 @@ let BufferType = null;
  * @param  {Buffer|null} Buffer - A Node.js `Buffer` style interface.
  * @return {Object} - The json encoder/decoder.
  */
-exports.use = (Buffer) => {
+exports.use = Buffer => {
   BufferType = Buffer;
 };
 
@@ -22,18 +22,15 @@ const BUFFER = 'Buffer';
  * @param  {Any} value - Potential node buffer.
  * @return {Boolean} - Whether the value is a node buffer.
  */
-const isNodeBuffer = (value) => Boolean(
-  value.type === BUFFER &&
-  value.data &&
-  value.data.slice
-);
+const isNodeBuffer = value =>
+  Boolean(value.type === BUFFER && value.data && value.data.slice);
 
 /**
  * Determines if a value is an ArrayBuffer view.
  * @param  {Any} data - Anthing.
  * @return {Boolean} - True for typed arrays, false for anything else.
  */
-const isBuffer = (data) => {
+const isBuffer = data => {
   if (!data) {
     return false;
   }
@@ -78,16 +75,24 @@ const arrayTypes = {
  * @param  {TypedArray} buffer - Any typed array.
  * @return {Number|null} - A numerical constant, or null for the default.
  */
-const getBufferType = (buffer) => {
+const getBufferType = buffer => {
   switch (buffer.constructor) {
-  case Int8Array: return bufferTypes.i8;
-  case Uint16Array: return bufferTypes.ui16;
-  case Int16Array: return bufferTypes.i16;
-  case Uint32Array: return bufferTypes.ui32;
-  case Int32Array: return bufferTypes.i32;
-  case Float32Array: return bufferTypes.f32;
-  case Float64Array: return bufferTypes.f64;
-  default: return null;
+    case Int8Array:
+      return bufferTypes.i8;
+    case Uint16Array:
+      return bufferTypes.ui16;
+    case Int16Array:
+      return bufferTypes.i16;
+    case Uint32Array:
+      return bufferTypes.ui32;
+    case Int32Array:
+      return bufferTypes.i32;
+    case Float32Array:
+      return bufferTypes.f32;
+    case Float64Array:
+      return bufferTypes.f64;
+    default:
+      return null;
   }
 };
 
@@ -110,7 +115,7 @@ const createBufferView = (type, buffer) => {
  * @return {Object} data.json - The stringified json data.
  * @return {Object} data.buffers - A list of extracted buffers.
  */
-const serialize = (data) => {
+const serialize = data => {
   const buffers = [];
 
   const json = JSON.stringify(data, (key, value) => {
@@ -143,7 +148,7 @@ const serialize = (data) => {
  * @param  {Mixed} data - Supports JSON datatypes & binary.
  * @return {ArrayBuffer|void} - An array buffer representing the given data.
  */
-exports.encode = (data) => {
+exports.encode = data => {
   if (data === undefined) {
     return data;
   }
@@ -164,7 +169,7 @@ exports.encode = (data) => {
  * @param  {Mixed} value - A json datatype.
  * @return {Mixed} - Either the same json value or a new buffer.
  */
-const deserialize = (buffers) => (key, value) => {
+const deserialize = buffers => (key, value) => {
   if (!value) {
     return value;
   }
@@ -176,7 +181,6 @@ const deserialize = (buffers) => (key, value) => {
   const [index, TYPE] = value[exports.SECRET_KEY];
 
   if (index in buffers) {
-
     // Reconstruct the data in the original buffer view.
     return createBufferView(TYPE, buffers[index]);
   }
@@ -189,7 +193,7 @@ const deserialize = (buffers) => (key, value) => {
  * @param  {ArrayBuffer} buffer - Must be a buffer created by `json.encode`.
  * @return {Mixed} - The JSON data, binary values included :tada:
  */
-exports.decode = (buffer) => {
+exports.decode = buffer => {
   const typeName = typeof buffer;
   const isObject = typeName === 'object' && !!buffer;
 
@@ -197,14 +201,14 @@ exports.decode = (buffer) => {
   if (buffer === '[object ArrayBuffer]') {
     throw new TypeError(
       'Hmmm, bin-json.decode(...) was given "[object ArrayBuffer]".\n' +
-      'Double check that your encoded data is being handled correctly.'
+        'Double check that your encoded data is being handled correctly.',
     );
   }
 
   if (!isObject) {
     const type = typeName === 'object' ? String(buffer) : typeName;
     throw new TypeError(
-      `bin-json.decode() expects a buffer, but was given "${type}".`
+      `bin-json.decode() expects a buffer, but was given "${type}".`,
     );
   }
 

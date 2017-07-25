@@ -9,6 +9,7 @@ env:
   jest: true
   commonjs: true
 
+parser: babel-eslint
 parserOptions:
   sourceType: module
 
