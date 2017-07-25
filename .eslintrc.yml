@@ -1,6 +1,7 @@
 extends:
   - eslint:recommended
   - llama
+  - prettier
 
 env:
   shared-node-browser: true
