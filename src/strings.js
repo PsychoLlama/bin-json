@@ -1,4 +1,4 @@
-const getCharCode = (char) => char.charCodeAt(0);
+const getCharCode = char => char.charCodeAt(0);
 
 /**
  * Turn a string into a typed array.
@@ -6,7 +6,7 @@ const getCharCode = (char) => char.charCodeAt(0);
  * @param  {String} chars - Restricted to common characters.
  * @return {Uint8Array} - Character codes mapped into a typed array.
  */
-const encoder = (ArrayType) => (chars) => {
+const encoder = ArrayType => chars => {
   const codes = chars.split('').map(getCharCode);
   const view = new ArrayType(codes.length);
   view.set(codes, 0);
@@ -20,7 +20,7 @@ const encoder = (ArrayType) => (chars) => {
  * @param  {ArrayBuffer} buffer - String data.
  * @return {String} - The interpreted buffer.
  */
-const decoder = (ArrayType) => (buffer) => {
+const decoder = ArrayType => buffer => {
   const view = new ArrayType(buffer);
 
   // Older browsers don't support iterable TypedArrays.

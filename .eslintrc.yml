@@ -1,6 +1,7 @@
 extends:
   - eslint:recommended
   - llama
+  - prettier
 
 env:
   shared-node-browser: true
@@ -8,6 +9,7 @@ env:
   jest: true
   commonjs: true
 
+parser: babel-eslint
 parserOptions:
   sourceType: module
 
