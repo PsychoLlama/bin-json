@@ -128,7 +128,7 @@ Binary data manipulation is still somewhat new to JavaScript. In standard browse
 - [caniuse](http://caniuse.com/#search=typed%20arrays)
 
 ## Human support
-:collision: Find a bug? Submit an issue.
+:boom: Find a bug? Submit an issue.
 
 :bulb: Have an idea? Also submit an issue.
 
