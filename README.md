@@ -127,6 +127,8 @@ Binary data manipulation is still somewhat new to JavaScript. In standard browse
 - [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray#Browser_compatibility)
 - [caniuse](http://caniuse.com/#search=typed%20arrays)
 
+Although it _could_ work in Node 4, `bin-json` only targets maintained node versions.
+
 ## Human support
 :boom: Find a bug? Submit an issue.
 
