@@ -10,8 +10,12 @@
     "build": "babel src/ -d dist/ --ignore __tests__",
     "build:watch": "npm run build -- --watch",
     "prepublishOnly": "npm run build",
-    "precommit": "lint-staged",
     "prettier": "prettier --single-quote --trailing-comma all"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.js": [
@@ -51,14 +55,16 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-config-llama": "^3.0.0",
-    "eslint-config-prettier": "^2.3.0",
-    "husky": "^0.14.3",
+    "eslint-config-prettier": "^5.0.0",
+    "husky": "^2.4.1",
     "jest": "^24.8.0",
-    "lint-staged": "^4.0.2",
-    "prettier": "^1.5.3"
+    "lint-staged": "^8.2.1",
+    "prettier": "^1.18.2"
   },
   "jest": {
-    "testMatch": ["<rootDir>/src/**/__tests__/*.test.js"],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/*.test.js"
+    ],
     "collectCoverage": true,
     "coverageThreshold": {
       "global": {
