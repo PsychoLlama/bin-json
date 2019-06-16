@@ -1,9 +1,10 @@
 language: node_js
 
 node_js:
-- 4
-- 6
 - 8
+- 10
+
+before_script: yarn build
 
 script:
 - yarn test
@@ -11,9 +12,9 @@ script:
 
 deploy:
   provider: npm
-  email: Jesse_Gibson@me.com
+  email: JesseTheGibson@gmail.com
   api_key:
-    secure: GEGpf74Ww5KaahZVvSVXZsKGUQbRR3WrqQp7+p1zUmKFXuRZdK81mgh4CYx/H16RPAiZ9+PNeQPwXc+OttX9ohwEYCaETNN0VgQ9DEfohWN9pAlwreydMDomGCceUqIjBWtgrgrvO58rFtJ/EaEZilP4QEunYjWPdSqpFIyHSmOIa18SfNBD7I+QBmHYeX4EGj8fViLAMK5quHBfGyjUTNCIZC93K0aAchukJ2b9xeYLuOZZdZn/1F8hluRTNOhr78ZpZOhc+Jx76KgJAo7lOyl81g+VNN637WYfUm5HNbWUKlwvx7xzcuqu653KJ10BJG+e0+pUEKhtVXbJ2tMtn7EcnYH74X0fLikl4RtdZ1OZ7MdWInybzRh2lPvce+HsQKrIZjNCG5b0tQobFCmEHU035IBF8bb6L3OJnlsgm8JE1xg4PBIdMpJcnjNyt3TO5d/h818ZMviB01Qgfhird2Xmze4UD0gcX1Xi2XPkHoergD3fpocKkexkDLLoVJM8I3ZKaTgm6niH/QVrtiS2Gf6Kp7x8W01XPsVw4O+7eDnRHyzDGFWAGED4ZvQNoY3nunfQ00oM1KTY3oFPdgT/LJwB/swgzaH0u7dbg36tHpPUI8GK4alhx63XGowpIka9F0YQLM4R3tLHUZ3SFGU0zwcZge9Mq5g+I0gQsVH0CJU=
+    secure: KGQ0ipi7ixRBl0fOIX/5SNGvq82f09VhEaHa2SMX6JrDk/sKFY8Ubypd7Sh3xuH+jq88Sb5AWqRVdFbxuNZ+kMHyo7iFSva4Xdcru14ij438qmmNF7QOSykghfLaVUdAu9E/yJZ6e5JQR7nt4owQ9KEWj5ggwQQ3FINjCdSPlc8PKP5wXi7ZG2wFBEp1t3loxNsCRAvoemRcOguP4c1pGouBTN2w9vy3iAdS6VERlt2uPL/fQ3wsw+nDg42IYS051CzA6GcEPItauXnnEN2Mtek9HbgaAvaYgHsZVurOoNz/J86wG5owWUFYtg7DBbwrIzcLn0LjT0ZhOhzPrk8n9vyROg28Z6mn6wMXBx1j03VKn8MzUHqZHn7T7SDG3rAKaOcy8hypypTt/a4Tytf6gjF543NqsaHaYE6b6E0KZ9aiJR2QWA97H7ET0BZpWUxOzfRSzKgIFfAlI9bHZKqAxcAsnLpXGwrbH8FTXAnlqrFVLeXGEs2iSrGej/zMv+u2rjoZ/e8SnKN0B03xRwaAcs5O7LR1lnmudMWJ6bq112RpuVCUI0T3QzZSg5k0dI4mFsKWx2bOibxQtrAwp9PnE07aioydCwhqQ5A0u7fG9VQmBwfpnm18L6fi4xSBmA2ckHUioFbQ86F3jojAPLPhbNa8V9dxXGelrBXHnGpwlZY=
   on:
     tags: true
     repo: PsychoLlama/bin-json
