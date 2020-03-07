@@ -27,8 +27,8 @@ describe('Package', () => {
   });
 
   it('works with empty buffers', () => {
-    const buff1 = new Buffer('');
-    const buff2 = new Buffer('');
+    const buff1 = Buffer.from('');
+    const buff2 = Buffer.from('');
 
     const buffer = pack([buff1, buff2]);
 
