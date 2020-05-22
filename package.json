@@ -4,12 +4,11 @@
   "description": "Serialize JSON which contains binary data",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "npm test -- --watch",
-    "lint": "eslint src/",
+    "test": "./run-tests",
+    "test:unit": "jest --color",
+    "test:lint": "eslint src/ --color",
     "build": "babel src/ -d dist/ --ignore __tests__",
-    "build:watch": "npm run build -- --watch",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "yarn run build",
     "prettier": "prettier --single-quote --trailing-comma all"
   },
   "husky": {
@@ -19,7 +18,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "npm run prettier -- --write"
+      "yarn run prettier -- --write"
     ]
   },
   "repository": {
