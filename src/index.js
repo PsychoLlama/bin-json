@@ -9,7 +9,7 @@ let BufferType = null;
  * @param  {Buffer|null} Buffer - A Node.js `Buffer` style interface.
  * @return {Object} - The json encoder/decoder.
  */
-exports.use = Buffer => {
+exports.use = (Buffer) => {
   BufferType = Buffer;
 };
 
@@ -22,7 +22,7 @@ const BUFFER = 'Buffer';
  * @param  {Any} value - Potential node buffer.
  * @return {Boolean} - Whether the value is a node buffer.
  */
-const isNodeBuffer = value =>
+const isNodeBuffer = (value) =>
   Boolean(value.type === BUFFER && value.data && value.data.slice);
 
 /**
@@ -30,7 +30,7 @@ const isNodeBuffer = value =>
  * @param  {Any} data - Anthing.
  * @return {Boolean} - True for typed arrays, false for anything else.
  */
-const isBuffer = data => {
+const isBuffer = (data) => {
   if (!data) {
     return false;
   }
@@ -75,7 +75,7 @@ const arrayTypes = {
  * @param  {TypedArray} buffer - Any typed array.
  * @return {Number|null} - A numerical constant, or null for the default.
  */
-const getBufferType = buffer => {
+const getBufferType = (buffer) => {
   switch (buffer.constructor) {
     case Int8Array:
       return bufferTypes.i8;
@@ -115,7 +115,7 @@ const createBufferView = (type, buffer) => {
  * @return {Object} data.json - The stringified json data.
  * @return {Object} data.buffers - A list of extracted buffers.
  */
-const serialize = data => {
+const serialize = (data) => {
   const buffers = [];
 
   const json = JSON.stringify(data, (key, value) => {
@@ -148,7 +148,7 @@ const serialize = data => {
  * @param  {Mixed} data - Supports JSON datatypes & binary.
  * @return {ArrayBuffer|void} - An array buffer representing the given data.
  */
-exports.encode = data => {
+exports.encode = (data) => {
   if (data === undefined) {
     return data;
   }
@@ -169,7 +169,7 @@ exports.encode = data => {
  * @param  {Mixed} value - A json datatype.
  * @return {Mixed} - Either the same json value or a new buffer.
  */
-const deserialize = buffers => (key, value) => {
+const deserialize = (buffers) => (key, value) => {
   if (!value) {
     return value;
   }
@@ -193,7 +193,7 @@ const deserialize = buffers => (key, value) => {
  * @param  {ArrayBuffer} buffer - Must be a buffer created by `json.encode`.
  * @return {Mixed} - The JSON data, binary values included :tada:
  */
-exports.decode = buffer => {
+exports.decode = (buffer) => {
   const typeName = typeof buffer;
   const isObject = typeName === 'object' && !!buffer;
 

@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import { pack, unpack } from '../packager';
 import { small, large } from '../strings';
 
-const createBuffer = arrayBuffer => Buffer.from(arrayBuffer);
+const createBuffer = (arrayBuffer) => Buffer.from(arrayBuffer);
 
 describe('Package', () => {
   it('contains the length of a single buffer', () => {
@@ -53,7 +53,7 @@ describe('Package', () => {
     const buffers = unpack(buffer);
 
     expect(buffers).toEqual(expect.any(Array));
-    buffers.map(buffer => expect(buffer).toEqual(expect.any(ArrayBuffer)));
+    buffers.map((buffer) => expect(buffer).toEqual(expect.any(ArrayBuffer)));
     expect(buffers.map(createBuffer)).toEqual([buff1, buff2]);
   });
 
