@@ -1,6 +1,9 @@
 import { pack, unpack } from './packager';
 import { large } from './strings';
 
+// Safer than comparing by reference - cross-realm constructors can bite you.
+const ARRAY_BUFFER_TAG = '[object ArrayBuffer]';
+
 let BufferType = null;
 
 /**
@@ -36,7 +39,7 @@ const isBuffer = (data) => {
   }
 
   // Typed arrays.
-  if (data.buffer instanceof ArrayBuffer) {
+  if (Object.prototype.toString.call(data.buffer) === ARRAY_BUFFER_TAG) {
     return true;
   }
 

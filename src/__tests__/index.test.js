@@ -1,5 +1,6 @@
 import { small, large } from '../strings';
 import json from '../index';
+import { NativeArrayBuffer } from '../test-utils';
 
 const originalSecretKey = json.SECRET_KEY;
 
@@ -27,7 +28,7 @@ describe('bin-json', () => {
   it('encodes to an ArrayBuffer', () => {
     const buffer = json.encode('data');
 
-    expect(buffer).toEqual(expect.any(ArrayBuffer));
+    expect(buffer).toBeInstanceOf(NativeArrayBuffer);
   });
 
   it('works with boolean values', () => {

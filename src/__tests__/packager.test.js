@@ -2,6 +2,7 @@ import { readFileSync } from 'fs';
 
 import { pack, unpack } from '../packager';
 import { small, large } from '../strings';
+import { NativeArrayBuffer } from '../test-utils';
 
 const createBuffer = (arrayBuffer) => Buffer.from(arrayBuffer);
 
@@ -10,7 +11,7 @@ describe('Package', () => {
     const data = Buffer.from('something');
     const buffer = pack([data]);
 
-    expect(buffer).toEqual(expect.any(ArrayBuffer));
+    expect(buffer).toBeInstanceOf(NativeArrayBuffer);
 
     const expected = Buffer.from(`${data.byteLength}\0something`);
     expect(Buffer.from(buffer)).toEqual(expected);
@@ -53,7 +54,7 @@ describe('Package', () => {
     const buffers = unpack(buffer);
 
     expect(buffers).toEqual(expect.any(Array));
-    buffers.map((buffer) => expect(buffer).toEqual(expect.any(ArrayBuffer)));
+    buffers.map((buffer) => expect(buffer).toBeInstanceOf(NativeArrayBuffer));
     expect(buffers.map(createBuffer)).toEqual([buff1, buff2]);
   });
 

@@ -4,7 +4,10 @@
 
 ## Unreleased
 ### Removed
-- Dropped support for unmaintained node versions (node < 8).
+- Dropped support for unmaintained node versions (node < 10).
+
+### Fixed
+- Improve cross-realm detection of `ArrayBuffer` instances.
 
 ## 0.3.1
 ### Changed
