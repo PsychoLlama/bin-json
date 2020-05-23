@@ -1,7 +1,7 @@
 # bin-json
 *Serialize JSON intermixed with binary data*
 
-[![Travis branch](https://img.shields.io/travis/PsychoLlama/bin-json/master.svg?style=flat-square)](https://travis-ci.org/PsychoLlama/bin-json)
+[![GitHub Workflow](https://img.shields.io/github/workflow/status/PsychoLlama/bin-json/Continuous%20Integration/master?style=flat-square)](https://github.com/PsychoLlama/filament/actions?query=workflow%3A%22Continuous+Integration%22)
 [![npm](https://img.shields.io/npm/dt/bin-json.svg?style=flat-square)](https://www.npmjs.com/package/bin-json)
 [![npm](https://img.shields.io/npm/v/bin-json.svg?style=flat-square)](https://www.npmjs.com/package/bin-json)
 
