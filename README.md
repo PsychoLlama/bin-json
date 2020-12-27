@@ -5,6 +5,13 @@
 [![npm](https://img.shields.io/npm/dt/bin-json.svg?style=flat-square)](https://www.npmjs.com/package/bin-json)
 [![npm](https://img.shields.io/npm/v/bin-json.svg?style=flat-square)](https://www.npmjs.com/package/bin-json)
 
+## --- UNMAINTAINED ---
+When I wrote this I was a noob who didn't know about [MessagePack](https://msgpack.org/). I'm still a noob, but at least I know about MessagePack.
+
+You should use that instead.
+
+---
+
 ## What for?
 First off, let's get this out of the way: `bin-json` is not a [BSON](https://docs.mongodb.com/manual/reference/bson-types/) alternative. It aims to solve a different problem. The sole purpose of `bin-json` is efficiently adding binary types to json.
 
